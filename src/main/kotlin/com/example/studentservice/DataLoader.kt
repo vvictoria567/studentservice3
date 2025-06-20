@@ -1,42 +1,31 @@
-package com.example.studentservice
+package com.example.studentsservice
 
-import com.example.studentservice.model.Student
-import com.example.studentservice.repository.StudentRepository
+import com.example.studentsservice.model.Student
+import com.example.studentsservice.xml.XmlParser
+import com.example.studentsservice.repository.StudentRepository
+import com.example.studentsservice.repository.SkillRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
 
 @Component
-class DataLoader(private val repository: StudentRepository) : CommandLineRunner {
+class DataLoader(
+    private val studentRepository: StudentRepository,
+    private val skillRepository: SkillRepository,
+    private val xmlParser: XmlParser
+) : CommandLineRunner {
 
     override fun run(vararg args: String?) {
-        // Пример XML строки — замените на чтение из файла по необходимости.
-        val xmlContent = """
-            <students>
-                <student>
-                    <name>Иван Иванов</name>
-                    <skills>
-                        <skill>Java</skill>
-                        <skill>Kotlin</skill>
-                    </skills>
-                </student>
-                <student>
-                    <name>Петр Петров</name>
-                    <skills>
-                        <skill>Python</skill>
-                        <skill>Django</skill>
-                    </skills>
-                </student>
-            </students>
-        """.trimIndent()
+        val students = xmlParser.parse("src/main/resources/students.xml")
+        saveStudents(students)
+    }
 
-        // Парсим студентов из XML строки.
-        val students = parseStudentsFromXml(xmlContent)
-
-        // Сохраняем каждого студента в базу.
-        for (student in students) {
-            repository.save(student)
+    fun saveStudents(students: List<Student>) {
+        students.forEach { student ->
+            val savedStudent = studentRepository.save(student)
+            student.skills?.forEach { skill ->
+                val skillEntity = skill.copy(studentId = savedStudent.id!!)
+                skillRepository.save(skillEntity)
+            }
         }
-
-        println("Данные успешно загружены")
     }
 }

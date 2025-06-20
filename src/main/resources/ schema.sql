@@ -1,11 +1,11 @@
 CREATE TABLE students (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     name VARCHAR(255)
 );
 
 CREATE TABLE skills (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    student_id BIGINT,
+    student_id INT,
+    skill_name VARCHAR(255),
     FOREIGN KEY (student_id) REFERENCES students(id)
 );

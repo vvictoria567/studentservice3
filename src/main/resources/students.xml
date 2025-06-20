@@ -1,0 +1,17 @@
+<students>
+    <student>
+        <id>1</id>
+        <name>Иван Иванов</name>
+        <skills>
+            <skill>Java</skill>
+            <skill>Kotlin</skill>
+        </skills>
+    </student>
+    <student>
+        <id>2</id>
+        <name>Петр Петров</name>
+        <skills>
+            <skill>Python</skill>
+        </skills>
+    </student>
+</students>
