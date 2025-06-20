@@ -1,0 +1,23 @@
+<dependencies>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+		<version>2.7.13</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jdbc</artifactId>
+		<version>2.7.13</version>
+	</dependency>
+	<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+		<scope>runtime</scope>
+	</dependency>
+	<!-- Для парсинга XML -->
+	<dependency>
+		<groupId>org.jetbrains.kotlinx</groupId>
+		<artifactId>kotlinx-coroutines-core</artifactId>
+		<version>1.6.0</version>
+	</dependency>
+</dependencies>
